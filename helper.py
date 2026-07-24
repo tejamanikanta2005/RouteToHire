@@ -6,8 +6,11 @@ client = genai.Client(
 )
 
 def ask_gemini(prompt):
-    response = client.models.generate_content(
-        model="gemini-2.5-flash",
-        contents=prompt
-    )
-    return response.text
+    try:
+        response = client.models.generate_content(
+            model="gemini-flash-latest",
+            contents=prompt
+        )
+        return response.text
+    except Exception as e:
+        return f"Gemini Error:\n\n{str(e)}"
