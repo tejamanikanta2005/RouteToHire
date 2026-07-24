@@ -1,4 +1,4 @@
-sstreamlit
+streamlit
 google-genai
 PyPDF2
 python-dotenv
