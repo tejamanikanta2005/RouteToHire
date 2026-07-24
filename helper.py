@@ -1,32 +1,21 @@
-'''
-import google.generativeai as genai
 import os
-from dotenv import load_dotenv
-
-# Load API Key from .env
-load_dotenv()
-
-genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
-
-# Create Gemini model
-model = genai.GenerativeModel("gemini-2.5-flash-lite")
-def ask_gemini(question):
-    response = model.generate_content(question)
-    return response.text
-'''
-import os
-from dotenv import load_dotenv
+import streamlit as st
 from google import genai
 
-load_dotenv()
+# Get API key from Streamlit Secrets or .env
+api_key = None
 
-client = genai.Client(
-    api_key=os.getenv("GOOGLE_API_KEY")
-)
+try:
+    api_key = st.secrets["GOOGLE_API_KEY"]
+except:
+    api_key = os.getenv("GOOGLE_API_KEY")
+
+client = genai.Client(api_key=api_key)
+
 
 def ask_gemini(prompt):
     response = client.models.generate_content(
-        model="gemini-flash-latest",
+        model="gemini-2.5-flash",
         contents=prompt
     )
 
